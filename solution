@@ -1,0 +1,62 @@
+class Solution {
+    public int maximumGain(String s, int x, int y) {
+           Stack<String> a =  new Stack<>();
+           Stack<String> b =  new Stack<>();
+           String high = x>y?"ab":"ba";
+           String low = x>y?"ba":"ab";
+       
+           int count = 0;
+           int c = 0;
+           for(int i = 0;i< s.length();i++){
+               a.push(s.charAt(i)+"");
+           }
+        
+           while(!a.isEmpty()){
+                if(a.peek().equals("a") || a.peek().equals("b")){
+                   b.push(a.pop()); 
+                }
+               else if(!b.isEmpty()){
+                   StringBuilder sb =  new StringBuilder();
+                   while(!b.isEmpty()){
+                       sb.append(b.pop());
+                   }
+                   String t = sb.toString();
+                   int i = t.indexOf(high);
+                    while(i>-1){
+                         count += x>y?x:y;
+                         t = t.substring(0,i)+t.substring(i+2,t.length());
+                         i = t.indexOf(high);
+                   }
+                   int j = t.indexOf(low);
+                    while(j>-1){
+                         count += x>y?y:x;
+                         t = t.substring(0,j)+t.substring(j+2,t.length());
+                         j = t.indexOf(low);
+                   }                                   
+               }
+               else a.pop();
+
+           }
+             if(!b.isEmpty()){
+                   StringBuilder sb =  new StringBuilder();
+                   while(!b.isEmpty()){
+                       sb.append(b.pop());
+                   }
+                   String t = sb.toString();
+                   int i = t.indexOf(high);
+                    while(i>-1){
+                         count += x>y?x:y;
+                         t = t.substring(0,i)+t.substring(i+2,t.length());
+                         i = t.indexOf(high);
+                   }
+                   int j = t.indexOf(low);
+                    while(j>-1){
+                         count += x>y?y:x;
+                         t = t.substring(0,j)+t.substring(j+2,t.length());
+                         j = t.indexOf(low);
+                   }                                   
+               }        
+
+        return count;
+    }
+}
